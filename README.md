@@ -16,4 +16,5 @@ go + consul 教程文档
 * [✅ Go + cousul 治理微服务（服务端）【三】](docs/server.md)
 * [✅ Go + cousul 治理微服务（服务注册）【四】](docs/register.md)
 * [✅ Go + cousul 治理微服务（客户端）【五】](docs/client.md)
+* [✅ Go + cousul 治理微服务（获取consul配置）【六】](docs/consul-kv-use.md)
 

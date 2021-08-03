@@ -26,5 +26,11 @@
       "title": "客户端",
       "file": "client"
     }
+  ],
+  "consul配置": [
+    {
+      "title":"consul配置",
+      "file": "consul-kv-use"
+    }
   ]
 }
