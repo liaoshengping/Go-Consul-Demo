@@ -1,0 +1,15 @@
+syntax = "proto3";
+option go_package = "./;OrderService";
+package OrderService;
+service OrderService {
+    rpc CreateOrder (Request) returns(Response){}
+}
+message Request {
+    string goodsId = 1;
+    string buyNum = 2;
+}
+message Response{
+    int32  code = 1;
+    string msg =2;
+    int64 orderID =3;
+}
