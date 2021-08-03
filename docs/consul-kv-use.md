@@ -7,9 +7,7 @@
 
 >go get github.com/micro/go-plugins/config/source/consul/v2
 
-
 新建 `common/common.go` 用户获取consul 中的配置key、value
-
 
 ```go
 package common

@@ -12,7 +12,6 @@ import (
 )
 
 func main()  {
-
 	consulRegister := consul.NewRegistry(func(options *registry.Options) {
 		options.Addrs = []string{
 			"192.168.205.22:8500",
