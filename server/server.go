@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2/registry"
+	"github.com/micro/go-plugins/registry/consul/v2"
 	"github.com/syyongx/php2go"
 	OrderService "order-micro/proto"
 )
@@ -33,9 +35,14 @@ func (h *OrderServer) CreateOrder(ctx context.Context, req *OrderService.Request
 }
 
 func main() {
-
+	consulRegister := consul.NewRegistry(func(options *registry.Options) {
+		options.Addrs = []string{
+			"192.168.205.22:8500",
+		}
+	})
 	service := micro.NewService(
 		micro.Name("order.service"),
+		micro.Registry(consulRegister),
 	)
 
 	service.Init()
