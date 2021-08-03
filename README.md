@@ -4,6 +4,10 @@ go + consul 教程文档
 
 [![Language](https://img.shields.io/badge/Language-Go-blue.svg)](https://golang.org/)
 
+源码
+==============
+[https://github.com/liaoshengping/Go-Consul-Demo](https://github.com/liaoshengping/Go-Consul-Demo)
+
 文档列表
 ==============
 

@@ -80,4 +80,9 @@ git add .
 git commit -m "proto编写与生成"
 ```
 
+源码
+==============
+[https://github.com/liaoshengping/Go-Consul-Demo](https://github.com/liaoshengping/Go-Consul-Demo)
+
+
 如果本系列课程能给你带来帮助，可以点一下关注，后面带来更多分享
