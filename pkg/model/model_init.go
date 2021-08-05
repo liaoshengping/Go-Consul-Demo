@@ -21,8 +21,7 @@ func InitDatabase(config common.MysqlConfig) error {
 	Db = db
 
 	Automigrate(*Db)
-
-	return nil
+ 	return nil
 }
 
 func Automigrate(db gorm.DB)  {

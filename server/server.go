@@ -6,7 +6,10 @@ import (
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/registry"
 	"github.com/micro/go-plugins/registry/consul/v2"
+	opentracing2 "github.com/micro/go-plugins/wrapper/trace/opentracing/v2"
+	"github.com/opentracing/opentracing-go"
 	"github.com/syyongx/php2go"
+	"log"
 	"order-micro/common"
 	"order-micro/models/order"
 	model "order-micro/pkg/model"
@@ -58,9 +61,23 @@ func main() {
 			"192.168.205.22:8500",
 		}
 	})
+	//链路追踪
+	t,io,err := common.NewTracer("order.service","192.168.205.22:6831")
+
+	if err !=nil {
+		log.Fatal(err)
+	}
+
+	defer io.Close()
+
+	opentracing.SetGlobalTracer(t)
+
+
 	service := micro.NewService(
 		micro.Name("order.service"),
 		micro.Registry(consulRegister),
+		//绑定链路追踪
+		micro.WrapHandler(opentracing2.NewHandlerWrapper(opentracing.GlobalTracer())),
 	)
 	//获取配置中心数据
 	MysqlConfig = common.GetMysqlFromConsul(consulConfig, "mysql")
