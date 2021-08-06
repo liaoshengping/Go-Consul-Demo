@@ -1,51 +1,26 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/registry"
 	"github.com/micro/go-plugins/registry/consul/v2"
+	ratelimit "github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2"
 	opentracing2 "github.com/micro/go-plugins/wrapper/trace/opentracing/v2"
 	"github.com/opentracing/opentracing-go"
-	"github.com/syyongx/php2go"
 	"log"
 	"order-micro/common"
-	"order-micro/models/order"
+	"order-micro/handler"
 	model "order-micro/pkg/model"
 	OrderService "order-micro/proto"
 )
 
 var (
 	MysqlConfig *common.MysqlConfig
+	QPS = 100
 )
 
-type OrderServer struct{}
 
-func (h *OrderServer) CreateOrder(ctx context.Context, req *OrderService.Request, rp *OrderService.Response) error {
-	defer func() {
-		if err := recover(); err != nil {
-			return
-		}
-	}()
-
-	goodsId := req.GoodsId
-
-	rp.Code = 200
-
-	_order := &order.Orders{}
-	_order.OrderNo= "asdf"
-	model.Db.Create(_order)
-
-	generateOrderId := php2go.Rand(0, 121212) //github.com/syyongx/php2go
-	generateOrderId_ := int64(generateOrderId)
-	rp.OrderID = generateOrderId_
-
-	rp.Msg = fmt.Sprintf("提交订单的goodsid为%s生成的订单id为%d 数据库host：%s", goodsId, generateOrderId, MysqlConfig.Host)
-	//创建订单的逻辑
-
-	return nil
-}
 
 func main() {
 	//配置中心
@@ -75,15 +50,19 @@ func main() {
 
 	service := micro.NewService(
 		micro.Name("order.service"),
+		//注册中心
 		micro.Registry(consulRegister),
 		//绑定链路追踪
 		micro.WrapHandler(opentracing2.NewHandlerWrapper(opentracing.GlobalTracer())),
+		//限流
+		micro.WrapHandler(ratelimit.NewHandlerWrapper(QPS)),
+
 	)
 	//获取配置中心数据
 	MysqlConfig = common.GetMysqlFromConsul(consulConfig, "mysql")
 	model.InitDatabase(*MysqlConfig)
 	service.Init()
-	OrderService.RegisterOrderServiceHandler(service.Server(), new(OrderServer))
+	OrderService.RegisterOrderServiceHandler(service.Server(), new(handler.OrderHandler))
 
 	if err := service.Run(); err != nil {
 		fmt.Println("service err", err)

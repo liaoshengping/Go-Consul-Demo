@@ -36,13 +36,19 @@ github：https://github.com/afex/hystrix-go
 
 打开意味着熔断了
 
-### 安装
+### 面板安装
 
 >docker pull cap1573/hystrix-dashboard
 
 ```
 docker run -d -p 9002:9002 cap1573/hystrix-dashboard
 ```
+
+### hystrix 安装
+
+>go get github.com/afex/hystrix-go/hystrix
+
+
 
 
 

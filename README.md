@@ -10,6 +10,7 @@ go + consul 教程文档
 
 文档列表
 ==============
+
 ### 服务注册
 * [✅ Go + cousul 治理微服务（proto编写）【一】](docs/proto.md)
 * [✅ Go + cousul 治理微服务（cousul 安装）【二】](docs/cousul.md)
@@ -21,5 +22,16 @@ go + consul 教程文档
 ### 链路追踪
 * [✅ Go + cousul+jeager 治理微服务（引入Gorm并创建Order）【七】](docs/gorm-init.md)
 * [✅ Go + cousul+jeager 治理微服务（安装Jeager）【八】](docs/jaeger-install.md)
-* [✅ Go + cousul+jeager 治理微服务（Jeager使用）【九】](docs/jaeger-use.md)
+* [✅ Go + cousul+jeager 治理微服务（链路追踪Jeager使用）【九】](docs/jaeger-use.md)
+
+
+### 高可用三剑客
+
+熔断（客户端） 限流（服务端） 负载均衡（客户端）
+
+* [✅ Go + cousul+jeager 治理微服务（limit 限流）【十】](docs/fuse/limit.md)
+* [✅ Go + cousul+jeager 治理微服务（hystrix-go 熔断）【十一】](docs/fuse/hystrix-go.md)
+* [✅ Go + cousul+jeager 治理微服务（负载均衡）【十二】](docs/fuse/hystrix-go.md)
+
+
 

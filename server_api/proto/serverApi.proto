@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "./;ServerApiPkg";
+
+package ServerApiPkg;
+
+service ServerApi{
+    rpc FinAll(Request) returns (Response) {
+
+    }
+}
+message Pair {
+    string key = 1;
+    repeated string values = 2;
+}
+
+message Request {
+    string method =1;
+    string paht = 2;
+    map<string,Pair>header =3;
+    map<string ,Pair>get = 4;
+    map<string ,Pair> post = 5;
+    string body = 6;
+    string url = 7;
+}
+
+message Response {
+    int32 statusCode = 1;
+    map<string ,Pair> header =2;
+    string body = 3;
+}

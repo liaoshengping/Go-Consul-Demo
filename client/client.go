@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/afex/hystrix-go/hystrix"
 	"github.com/gin-gonic/gin"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/registry"
@@ -10,7 +11,9 @@ import (
 	opentracing2 "github.com/micro/go-plugins/wrapper/trace/opentracing/v2"
 	"github.com/opentracing/opentracing-go"
 	"github.com/syyongx/php2go"
-	"log"
+	log "log"
+	"net"
+	"net/http"
 	"order-micro/common"
 	OrderService "order-micro/proto"
 )
@@ -33,12 +36,28 @@ func main()  {
 
 	opentracing.SetGlobalTracer(t)
 
+
+	//熔断
+	hystrixStreamHander := hystrix.NewStreamHandler();
+
+	hystrixStreamHander.Start()
+
+	go func() {
+		err = http.ListenAndServe(net.JoinHostPort("192.168.205.22","9096"),hystrixStreamHander)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
 	//创建一个新的服务
 	server := micro.NewService(
 		micro.Name("client"),
 		micro.Registry(consulRegister),
 		//绑定链路追踪
 		micro.WrapClient(opentracing2.NewClientWrapper(opentracing.GlobalTracer())),
+
+
+
 	)
 
 
@@ -56,6 +75,7 @@ func main()  {
 			GoodsId: php2go.Md5("123"),
 			BuyNum:"1",
 		})
+
 		if err != nil {
 			fmt.Println(err)
 		}
