@@ -55,8 +55,11 @@ goodsId  = 1 ，不是赋值 goodsId 就是为1 ，这个就像是一个标识�
 执行
 
 ```
- docker run --rm -u $(id -u) -v${PWD}:${PWD} -w${PWD} znly/protoc  -I$(pwd) ${PWD}/*.proto --go_out=${PWD} --micro_out=.
+docker run --rm -u $(id -u) -v${PWD}:${PWD} -w${PWD} znly/protoc  C--micro_out=./ --go_out=./ --proto_path =./
 ```
+docker run -v${PWD}:${PWD} -w${PWD} namely/protoc-all -f gateway.proto -l go --micro_out=./ --go_out=./
+
+
 
 本人，执行会有点小小的问题，所以我就不用docker演示 了，但这个是可以的哈，可以[看文档](https://github.com/znly/docker-protobuf)
 

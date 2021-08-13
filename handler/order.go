@@ -9,10 +9,19 @@ import (
 	OrderService "order-micro/proto"
 )
 
+var count int = 0;
+
 type OrderHandler struct{}
 
 //其实这个是handler
 func (h *OrderHandler) CreateOrder(ctx context.Context, req *OrderService.Request, rp *OrderService.Response) error {
+
+	//time.Sleep(3 * time.Second)
+	//
+	//count++
+	//fmt.Println("请求到了"+strconv.Itoa(count));
+
+
 	defer func() {
 		if err := recover(); err != nil {
 			return

@@ -31,7 +31,10 @@ go + consul 教程文档
 
 * [✅ Go + cousul+jeager 治理微服务（limit 限流）【十】](docs/fuse/limit.md)
 * [✅ Go + cousul+jeager 治理微服务（hystrix-go 熔断）【十一】](docs/fuse/hystrix-go.md)
-* [✅ Go + cousul+jeager 治理微服务（负载均衡）【十二】](docs/fuse/hystrix-go.md)
+* [✅ Go + cousul+jeager 治理微服务（负载均衡）【十二】](docs/fuse/)
+* [✅ Go + cousul+jeager 治理微服务（api 网关）【十二】](docs/fuse/gateway.md)
+
+
 
 
 

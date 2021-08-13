@@ -30,8 +30,6 @@ func main()  {
 
 	//熔断器
 
-
-
 	//创建一个新的服务
 	server := micro.NewService(
 		micro.Name("api.orderApi"),
@@ -40,8 +38,10 @@ func main()  {
 		micro.WrapClient(opentracing2.NewClientWrapper(opentracing.GlobalTracer())),
 	)
 
-
-
 	//初始化
 	server.Init()
+
+	//if err := server.Run(); err != nil {
+	//	fmt.Println("service err", err)
+	//}
 }
